@@ -1,1 +1,1 @@
-# viral_metaT_pipeline
+# RNA seq output trimming & mapping to existing reference
