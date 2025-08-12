@@ -26,14 +26,19 @@ conda install snakemake=8.25.5
 - profile/config.v8+.yaml: This file tells snakemake what default slurm resources to use to run a job. These resources will be used unless you specificy different resource parameters in a rule. Add the account you want to pull the resources from. You can adjust any of the other parameters as well - eg I have it set to only submit 5 batch jobs at once.
 - snakemake.sh: Add the account you want to pull resources from to run Snakemake (doesn't need much) and activate your snakemake environment
 
-### Step 4: Build DAG graph
+### Step 4: Unzip rRNA reference file
+```
+gunzip ref_seqs/smr_v4.3_default_db.fasta.gz
+```
+
+### Step 5: Build DAG graph
 - This step visualizes the workflow Snakemake will run and is a good way to troubleshoot any issues without submitting the slurm script and waiting for it to run
 ```
 snakemake --forceall --dag | dot -Tpdf > dag.pdf
 ```
 - Look at the outpu PDF to make sure Snakemake will do what you expect
 
-### Step 5: Submit slurm script to  run Snakemake
+### Step 6: Submit slurm script to  run Snakemake
 ```
 sbatch snakemake.sh
 ```
