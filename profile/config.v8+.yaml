@@ -10,4 +10,4 @@ default-resources:
   partition: "RM-shared"
   mem_mb: 35000
   runtime: 72h
-  slurm_account: "ees230009p"
+  slurm_account: ###ADD WHICH PROJECT YOU WANT RESOURCES TO COME FROM###
