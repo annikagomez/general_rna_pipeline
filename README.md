@@ -36,7 +36,7 @@ gunzip ref_seqs/smr_v4.3_default_db.fasta.gz
 ```
 snakemake --forceall --dag | dot -Tpdf > dag.pdf
 ```
-- Look at the outpu PDF to make sure Snakemake will do what you expect
+- Look at the output PDF to make sure Snakemake will do what you expect
 
 ### Step 6: Submit slurm script to  run Snakemake
 ```
