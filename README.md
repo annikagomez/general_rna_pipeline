@@ -1,6 +1,13 @@
 # RNA seq output trimming & mapping to existing reference
 
-### Step 1: Install Snakemake using conda
+### Step 1: Clone this repository
+
+```
+git clone https://github.com/annikagomez/general_rna_pipeline.git
+cd general_rna_pipeline
+```
+
+### Step 2: Install Snakemake using conda
 - Create and activate conda environment:
 ```
 conda create --name snakemake
@@ -12,8 +19,21 @@ conda activate snakemake
 conda install snakemake=8.25.5
 ```
 
-### Step 2: Clone this repository
+### Step 3: Edit Snakefile, slurm script, and config.v8+.yaml
+- Snakefile global wildcards: In line 1 of the Snakefile, provide the absolute path of the folder containing your raw sequences and make sure the file ending (_R1_001.fastq.gz) matches that of your forward read files. We only include the forward reads because we want a list of all of the sample names (1 for each sample), not all of the files (2 for each sample, forward and reverse reads)
+- Snakefile trim_galore input: In the input to rule trim_galore, edit r1 and r2 to match your input location. r1 should match the global wildcard in line 1 and r2 should point to the reverse reads
+- Snakefile salmon_index: Tell snakemake where to find the reference you want to map to (absolute path)
+- profile/config.v8+.yaml: This file tells snakemake what default slurm resources to use to run a job. These resources will be used unless you specificy different resource parameters in a rule. Add the account you want to pull the resources from. You can adjust any of the other parameters as well - eg I have it set to only submit 5 batch jobs at once.
+- snakemake.sh: Add the account you want to pull resources from to run Snakemake (doesn't need much) and activate your snakemake environment
 
+### Step 4: Build DAG graph
+- This step visualizes the workflow Snakemake will run and is a good way to troubleshoot any issues without submitting the slurm script and waiting for it to run
 ```
-git clone 
+snakemake --forceall --dag | dot -Tpdf > dag.pdf
+```
+- Look at the outpu PDF to make sure Snakemake will do what you expect
+
+### Step 5: Submit slurm script to  run Snakemake
+```
+sbatch snakemake.sh
 ```
