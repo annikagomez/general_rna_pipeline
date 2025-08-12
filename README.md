@@ -16,7 +16,7 @@ conda activate snakemake
 
 - Install Snakemake (I built this pipeline with v8.25.5):
 ```
-conda install snakemake=8.25.5
+conda install -c bioconda snakemake=8.25.5
 ```
 
 ### Step 3: Edit Snakefile, slurm script, and config.v8+.yaml
