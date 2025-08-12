@@ -70,16 +70,13 @@ rule salmon_index:
 		index_folder=directory("03.salmon/assembly_index")
 	conda:
 		"envs/salmon.yaml"
-	resources:
-		slurm_partition="RM-shared",
-        cpus_per_task=12,
 	shell:
 		"""
 		mkdir -p 03.salmon
 		salmon index -t {input.reference_assembly} -i {output.index_folder} -k 31 -p 12
 		"""
 
-rule salmon_assembly:
+rule salmon_map:
 	input:
 		index="03.salmon/assembly_index",
 		noercc1="02.ercc_remove/{sample}_R1_001_val_1_no_rrna_no_ercc.fq.gz",
